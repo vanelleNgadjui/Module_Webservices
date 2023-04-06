@@ -7,15 +7,27 @@
              xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <!-- Les définitions des types de données et des messages seront ajoutées dans les étapes suivantes. -->
     <types>
-        <xsd:schema targetNamespace="http://example.com/service">
-            <xsd:complexType name="Nom_du_type"> 
-                <xsd:sequence>
-                  <xsd:element name="champ1" type="xsd:string" />
-                  <xsd:element name="champ2" type="xsd:int" />
-                </xsd:sequence> 
-            </xsd:complexType>
-        </xsd:schema> 
-    </types>
+    <schema targetNamespace = "http://example.com/stockquote.xsd"
+        xmlns = "http://www.w3.org/2000/10/XMLSchema">
+            
+        <element name = "element1">
+            <complexType>
+                <all>
+                <element name = "souselement1" type = "string"/>
+                </all>
+            </complexType>
+        </element>
+            
+        <element name = "element2">
+            <complexType>
+                <all>
+                <element name = "souselement2" type = "float"/>
+                </all>
+            </complexType>
+        </element>
+            
+    </schema>
+</types>
   <message name="Nom_du_message">
     <part name="Paramètre_1" type="xsd:string" />
     <part name="Paramètre_2" type="xsd:int" />
