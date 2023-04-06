@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="GestionCompteService" targetNamespace="http://example.com/gestion_compte" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- Définitions des types de données -->
+	<types>
+		<schema targetNamespace="http://example.com/gestion_compte/types" xmlns="http://www.w3.org/2001/XMLSchema">
+			<!-- Définition d'un type de donnée représentant un compte client -->
+			<complexType name="CompteClient">
+				<sequence>
+					<element name="id" type="integer" />
+					<element name="nom" type="string" />
+					<element name="prenom" type="string" />
+					<element name="adresse" type="string" />
+					<element name="email" type="string" />
+					<element name="mot_de_passe" type="string" />
+					<element name="date_creation" type="date" />
+                    <element name="telephone" type="string"/>
+				</sequence>
+			</complexType>
+			<!-- Définition d'un type de donnée représentant une réponse du service -->
+			<complexType name="Reponse">
+				<sequence>
+					<element name="statut" type="string" />
+					<element name="message" type="string" />
+				</sequence>
+			</complexType>
+		</schema>
+	</types>
+	<!-- Définition du message de création d'un compte client -->
+	<message name="creerCompteRequest">
+		<part name="compte_client" type="tns:CompteClient" />
+	</message>
+	<!-- Définition du message de réponse de création d'un compte client -->
+	<message name="creerCompteResponse">
+		<part name="reponse" type="tns:Reponse" />
+	</message>
+	<!-- Définition du message de mise à jour d'un compte client -->
+	<message name="mettreAJourCompteRequest">
+		<part name="compte_client" type="tns:CompteClient" />
+	</message>
+	<!-- Définition du message de réponse de mise à jour d'un compte client -->
+	<message name="mettreAJourCompteResponse">
+		<part name="reponse" type="tns:Reponse" />
+	</message>
+	<!-- Définition du message de suppression d'un compte client -->
+	<message name="supprimerCompteRequest">
+		<part name="id_compte_client" type="integer" />
+	</message>
+	<!-- Définition du message de réponse de suppression d'un compte client -->
+	<message name="supprimerCompteResponse">
+		<part name="reponse" type="tns:Reponse" />
+	</message>
+	<!-- Définition du portType du service -->
+	<portType name="GestionComptePortType">
+		<!-- Définition de l'opération de création d'un compte client -->
+		<operation name="creerCompte">
+			<input message="tns:creerCompteRequest" />
+			<output message="tns:creerCompteResponse" />
+		</operation>
+		<!-- Définition de l'opération de mise à jour d'un compte client -->
+		<operation name="modifierCompteClient">
+			<input message="tns:modifierCompteClientRequest" />
+			<output message="tns:modifierCompteClientResponse" />
+		</operation>
+		<!-- Définition de l'opération de suppression d'un compte client -->
+		<operation name="supprimerCompteClient">
+			<input message="tns:supprimerCompteClientRequest" />
+			<output message="tns:supprimerCompteClientResponse" />
+		</operation>
+	</portType>
+	<!-- Définition des bindings du service -->
+	<binding name="GestionCompteClientBinding" type="tns:GestionCompteClientPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<!-- Définition de l'opération de création d'un compte client -->
+		<operation name="creerCompteClient">
+			<operation soapAction="http://example.com/gestion_compte_client/creerCompteClient" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<!-- Définition de l'opération de récupération d'un compte client -->
+		<operation name="recupererCompteClient">
+			<operation soapAction="http://example.com/gestion_compte_client/recupererCompteClient" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<!-- Définition de l'opération de modification d'un compte client -->
+		<operation name="modifierCompteClient">
+			<operation soapAction="http://example.com/gestion_compte_client/modifierCompteClient" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<!-- Définition de l'opération de suppression d'un compte client -->
+		<operation name="supprimerCompteClient">
+			<operation soapAction="http://example.com/gestion_compte_client/supprimerCompteClient" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<!-- Définition du service -->
+	<service name="GestionCompteClientService">
+		<documentation>
+			Service de gestion de comptes clients
+		</documentation>
+		<port name="GestionCompteClientPort" binding="tns:GestionCompteClientBinding">
+			<soap:address location="http://example.com/gestion_compte_client" />
+		</port>
+	</service>
+</definitions>

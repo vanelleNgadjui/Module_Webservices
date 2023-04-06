@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="GestionStockService" targetNamespace="http://example.com/gestion_stock" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- Définitions des types de données -->
+	<types>
+		<schema targetNamespace="http://example.com/gestion_stock/types" xmlns="http://www.w3.org/2001/XMLSchema">
+			<!-- Définition d'un type de donnée représentant un produit -->
+			<complexType name="Produit">
+				<sequence>
+					<element name="id" type="integer" />
+					<element name="nom" type="string" />
+					<element name="description" type="string" />
+					<element name="prix_unitaire" type="decimal" />
+					<element name="quantite" type="integer" />
+					<element name="date_expiration" type="date" />
+				</sequence>
+			</complexType>
+			<!-- Définition d'un type de donnée représentant une réponse du service -->
+			<complexType name="Reponse">
+				<sequence>
+					<element name="statut" type="string" />
+					<element name="message" type="string" />
+				</sequence>
+			</complexType>
+		</schema>
+	</types>
+	<!-- Définition du message de consultation des stocks -->
+	<message name="consulterStockRequest">
+		<part name="produit" type="tns:Produit" />
+	</message>
+	<!-- Définition du message de réponse de consultation des stocks -->
+	<message name="consulterStockResponse">
+		<part name="reponse" type="tns:Reponse" />
+	</message>
+	<!-- Définition du message d'ajout d'un produit au stock -->
+	<message name="ajouterProduitStockRequest">
+		<part name="produit" type="tns:Produit" />
+	</message>
+	<!-- Définition du message de réponse d'ajout d'un produit au stock -->
+	<message name="ajouterProduitStockResponse">
+		<part name="reponse" type="tns:Reponse" />
+	</message>
+	<!-- Définition du message de suppression d'un produit du stock -->
+	<message name="supprimerProduitStockRequest">
+		<part name="id" type="integer" />
+	</message>
+	<!-- Définition du message de réponse de suppression d'un produit du stock -->
+	<message name="supprimerProduitStockResponse">
+		<part name="reponse" type="tns:Reponse" />
+	</message>
+	<!-- Définition du portType du service -->
+	<portType name="GestionStockPortType">
+		<!-- Définition de l'opération de consultation d'un stock -->
+		<operation name="consulterStock">
+			<input message="tns:consulterStockRequest" />
+			<output message="tns:consulterStockResponse" />
+		</operation>
+		<!-- Définition de l'opération d'ajout d'un produit au stock -->
+		<operation name="ajouterProduit">
+			<input message="tns:ajouterProduitRequest" />
+			<output message="tns:ajouterProduitResponse" />
+		</operation>
+		<!-- Définition de l'opération de suppression d'un produit du stock -->
+		<operation name="supprimerProduit">
+			<input message="tns:supprimerProduitRequest" />
+			<output message="tns:supprimerProduitResponse" />
+		</operation>
+		<!-- Définition de l'opération de mise à jour d'un produit du stock -->
+		<operation name="modifierProduit">
+			<input message="tns:modifierProduitRequest" />
+			<output message="tns:modifierProduitResponse" />
+		</operation>
+	</portType>
+	<!-- Définition du binding du service -->
+	<binding name="GestionStockBinding" type="tns:GestionStockPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="ajouterStock">
+			<operation soapAction="http://example.com/gestion_stock/ajouterStock" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="modifierStock">
+			<operation soapAction="http://example.com/gestion_stock/modifierStock" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="supprimerStock">
+			<operation soapAction="http://example.com/gestion_stock/supprimerStock" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="consulterStock">
+			<operation soapAction="http://example.com/gestion_stock/consulterStock" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<!-- Définition du service -->
+    <service name="GestionStockService">
+		<documentation>
+			Service de gestion de stock
+		</documentation>
+		<port name="GestionStockPort" binding="tns:GestionStockBinding">
+			<soap:address location="http://example.com/gestion_stock" />
+		</port>
+	</service>
+</definitions>

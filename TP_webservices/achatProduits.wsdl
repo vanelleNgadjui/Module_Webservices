@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AchatProduitsService" targetNamespace="http://example.com/achat_produits" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- Définition des types de données -->
+	<types>
+		<schema targetNamespace="http://example.com/achat_produits/types" xmlns="http://www.w3.org/2001/XMLSchema">
+			<!-- Définition d'un type de donnée représentant un produit -->
+			<complexType name="Produit">
+				<sequence>
+					<element name="id" type="integer" />
+					<element name="nom" type="string" />
+					<element name="description" type="string" />
+					<element name="prix_unitaire" type="decimal" />
+					<element name="quantite" type="integer" />
+					<element name="date_expiration" type="date" />
+				</sequence>
+			</complexType>
+			<!-- Définition d'un type de donnée représentant une commande -->
+			<complexType name="Commande">
+				<sequence>
+					<element name="id_client" type="integer" />
+					<element name="produits" type="tns:Produit" minOccurs="1" maxOccurs="unbounded" />
+				</sequence>
+			</complexType>
+			<!-- Définition d'un type de donnée représentant une réponse du service -->
+			<complexType name="Reponse">
+				<sequence>
+					<element name="statut" type="string" />
+					<element name="message" type="string" />
+				</sequence>
+			</complexType>
+		</schema>
+	</types>
+	<!-- Définition du message de demande d'achat de produits -->
+	<message name="acheterProduitsRequest">
+		<part name="commande" type="tns:Commande" />
+	</message>
+	<!-- Définition du message de réponse d'achat de produits -->
+	<message name="acheterProduitsResponse">
+		<part name="reponse" type="tns:Reponse" />
+	</message>
+	<!-- Définition du portType du service -->
+	<portType name="AchatProduitsPortType">
+		<!-- Définition de l'opération d'achat de produits -->
+		<operation name="acheterProduits">
+			<input message="tns:acheterProduitsRequest" />
+			<output message="tns:acheterProduitsResponse" />
+		</operation>
+	</portType>
+	<!-- Définition du binding du service -->
+	<binding name="AchatProduitsBinding" type="tns:AchatProduitsPortType">
+		<binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="acheterProduits">
+			<operation soapAction="http://example.com/achat_produits/acheterProduits" />
+			<input>
+				<body use="literal" />
+			</input>
+			<output>
+				<body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<!-- Définition du service -->
+	<service name="AchatProduitsService">
+		<documentation>
+			Service d'achats de produits
+		</documentation>
+		<port name="AchatProduitsPort" binding="tns:AchatProduitsBinding">
+			<address location="http://example.com/achat_produits" />
+		</port>
+	</service>
+</definitions>

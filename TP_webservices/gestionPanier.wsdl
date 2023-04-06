@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="GestionPanierService" targetNamespace="http://example.com/gestion_panier" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- Définitions des types de données -->
+	<types>
+		<schema targetNamespace="http://example.com/gestion_panier/types" xmlns="http://www.w3.org/2001/XMLSchema">
+			<!-- Définition d'un type de donnée représentant un produit -->
+			<complexType name="Produit">
+				<sequence>
+					<element name="id" type="integer" />
+					<element name="nom" type="string" />
+					<element name="description" type="string" />
+					<element name="prix_unitaire" type="decimal" />
+					<element name="quantite" type="integer" />
+					<element name="date_expiration" type="date" />
+				</sequence>
+			</complexType>
+			<!-- Définition d'un type de donnée représentant un panier -->
+			<complexType name="Panier">
+				<sequence>
+					<element name="id_client" type="integer" />
+					<element name="produits" type="tns:Produit" minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
+			</complexType>
+			<!-- Définition d'un type de donnée représentant une réponse du service -->
+			<complexType name="Reponse">
+				<sequence>
+					<element name="statut" type="string" />
+					<element name="message" type="string" />
+				</sequence>
+			</complexType>
+		</schema>
+	</types>
+	<!-- Définition du message d'ajout d'un produit dans le panier -->
+	<message name="ajouterProduitRequest">
+		<part name="panier" type="tns:Panier" />
+		<part name="produit" type="tns:Produit" />
+	</message>
+	<!-- Définition du message de réponse d'ajout d'un produit dans le panier -->
+	<message name="ajouterProduitResponse">
+		<part name="reponse" type="tns:Reponse" />
+	</message>
+	<!-- Définition du message de suppression d'un produit dans le panier -->
+	<message name="supprimerProduitRequest">
+		<part name="panier" type="tns:Panier" />
+		<part name="produit" type="tns:Produit" />
+	</message>
+	<!-- Définition du message de réponse de suppression d'un produit dans le panier -->
+	<message name="supprimerProduitResponse">
+		<part name="reponse" type="tns:Reponse" />
+	</message>
+	<!-- Définition du portType du service -->
+	<portType name="GestionPanierPortType">
+		<!-- Définition de l'opération d'ajout d'un produit dans le panier -->
+		<operation name="ajouterProduit">
+			<input message="tns:ajouterProduitRequest" />
+			<output message="tns:ajouterProduitResponse" />
+		</operation>
+		<!-- Définition de l'opération de suppression d'un produit dans le panier -->
+		<operation name="supprimerProduit">
+			<input message="tns:supprimerProduitRequest" />
+			<output message="tns:supprimerProduitResponse" />
+		</operation>
+	</portType>
+	<!-- Définition du binding du service -->
+	<binding name="GestionPanierBinding" type="tns:GestionPanierPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<!-- Définition de l'opération d'ajout d'un produit dans le panier -->
+		<operation name="ajouterProduit">
+			<operation soapAction="http://example.com/gestion_panier/ajouterProduit" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<!-- Définition de l'opération de suppression d'un produit dans le panier -->
+		<operation name="supprimerProduit">
+			<operation soapAction="http://example.com/gestion_panier/supprimerProduit" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<!-- Définition du service -->
+	<service name="GestionPanierService">
+		<documentation>
+			Service de gestion de panier
+		</documentation>
+		<port name="GestionPanierPort" binding="tns:GestionPanierBinding">
+			<soap:address location="http://example.com/gestion_panier" />
+		</port>
+	</service>
+</definitions>
